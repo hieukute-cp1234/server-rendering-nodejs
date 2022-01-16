@@ -1,0 +1,20 @@
+div(class="header")
+  div(class="logo")
+    image(src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png")
+  div(class="title-header")
+    p(style="-webkit-user-select: none;")= titlePage
+  div(class="input-header")
+    button
+      i.fa.fa-search
+    input(type="text" placeholder="Search...")
+  div(class="profile")
+    div(class="box-profile" onclick="openDropdown();")
+      image(src="https://allimages.sgp1.digitaloceanspaces.com/wikilaptopcom/2021/01/1610802039_Tuyen-tap-avatar-anh-dai-dien-dep-doc-dao-da.jpg")
+      span(style="-webkit-user-select: none;")= user.userName
+      div(class="dropdown")
+        div(class="menu-item")
+          a
+            i.fa.fa-user-circle profile
+        div(class="menu-item")
+          a
+            i.fa.fa-sign-out logout

@@ -1,0 +1,12 @@
+div(class="wrapper-blog" id= blog._id)
+  div(class="blog-author")
+    image(src="https://allimages.sgp1.digitaloceanspaces.com/wikilaptopcom/2021/01/1610802039_Tuyen-tap-avatar-anh-dai-dien-dep-doc-dao-da.jpg")
+    div
+      span(class="blog-author_name")= blog.author.userName
+      span(class="blog-author_email")= blog.author.email
+  div(class="blog-content")
+    image(src="/image/img1.jpg")
+    div(class="blog-decriptions")= blog.content
+  div(class="blog-comments")
+    image(src="https://allimages.sgp1.digitaloceanspaces.com/wikilaptopcom/2021/01/1610802039_Tuyen-tap-avatar-anh-dai-dien-dep-doc-dao-da.jpg")
+    input(placeholder="Write a comment...")

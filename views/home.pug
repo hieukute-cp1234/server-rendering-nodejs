@@ -1,0 +1,12 @@
+doctype html
+html(lang="en")
+  include layout/layout
+  body
+    include layout/header
+    div(class="container")
+      div(class="container-blog")
+        each blog in blogList
+          include components/boxBlog
+      div(class="container-friend")
+        div(class="box-friend")
+    

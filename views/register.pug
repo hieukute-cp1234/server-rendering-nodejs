@@ -1,0 +1,26 @@
+doctype html
+html(lang="en")
+  include layout/layout
+  head
+  body(style="background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://wallpaperaccess.com/full/1691682.jpg') no-repeat;background-size: cover;")
+    div(class="content-login")
+      div(class="form-logo")
+        image(src="/image/logo.png")
+      div(class="form-login")
+        h1(style="text-align: center;") Register account
+        if error
+          div(class="error")= error
+        if success
+          div(class="success")= success
+        form(action="/register" method="POST")
+          labe Email:
+          input(name="email" type="text")
+          labe(class="form-label") User Name:
+          input(name="userName" type="text")
+          label(class="form-label" ) Password:
+          input(name="password" type="password")
+          labe(class="form-label" ) Confirm password:
+          input(name="confirmPassword" type="password")
+          div(class="form-button")
+            button(type="button" onclick="redirectLogin('LOGIN');") Login
+            button(type="submit") Register
