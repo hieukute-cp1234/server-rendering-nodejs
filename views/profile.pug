@@ -5,8 +5,59 @@ html(lang="en")
     include layout/header
     div(class="container")
       div(class="container-blog")
+        h2(style="text-align: center;") Blogs của bạn
         each blog in blogList
           include components/boxBlog
-      div(class="container-friend")
-        div(class="box-friend")
-        i.fa.fa-arrow-up
+      div(class="container-friend") 
+        h3 Thông tin cá nhân
+        if error
+          div(class="error")= error
+        if success
+          div(class="success")= success
+        form(action="/profile" method="POST")
+          div(class="content-profile")
+            div(class="key-profile") Email
+            div(class="value-profil-email")= user.email
+          div(class="content-profile")
+            div(class="key-profile") Tên
+            div(class="value-profile")= user.userName
+            input(class="input-edit" name="userName" value=user.userName)
+          div(class="content-profile")
+            div(class="key-profile") Ngày sinh
+            div(class="value-profile")= user.birthDay
+            input(class="input-edit" name="birthDay" value=user.birthDay)
+          div(class="content-profile")
+            div(class="key-profile") Số ĐT
+            div(class="value-profile")= user.phone
+            input(class="input-edit" name="phone" value=user.phone)
+          div(class="content-profile")
+            div(class="key-profile") Địa chỉ
+            div(class="value-profile")= user.address
+            input(class="input-edit" name="address" value=user.address)
+          div(class="content-profile")
+            div(class="key-profile") Nghề nghiệp
+            div(class="value-profile")= user.work
+            input(class="input-edit" name="work" value=user.work)
+          div(class="content-profile")
+            div(class="key-profile") Trường học
+            div(class="value-profile")= user.school
+            input(class="input-edit" name="school" value=user.school)
+          div(class="content-profile")
+            div(class="key-profile") Công ty
+            div(class="value-profile")= user.company
+            input(class="input-edit" name="company" value=user.company)
+          div(class="content-profile")
+            div(class="key-profile") Sở thích
+            div(class="value-profile")= user.hobby
+            input(class="input-edit" name="hobby" value=user.hobby)
+          div(class="content-profile")
+            div(class="key-profile") Sở trường
+            div(class="value-profile")= user.gifted
+            input(class="input-edit" name="gifted" value=user.gifted)
+          button(class="button-edit-profile" type="button" onclick="handleEditProfile();") Sửa thông tin cá nhân
+          div(class="box-button")
+            button(type="button" onclick="handleEditProfile();") Hủy bỏ thay đổi
+            button(type="submit" style="margin-left: 10px;") Lưu thay đổi
+
+      
+

@@ -5,7 +5,7 @@ const cookies = require("cookie-parser");
 const router = express.Router();
 const auththenticator = require("./middlewares/authenticator");
 const homePage = require("./controllers/home");
-const profilePage = require("./controllers/profile");
+const profileController = require("./controllers/profile");
 const authController = require("./controllers/login");
 const blogController = require("./controllers/bog");
 const commentController = require("./controllers/comment");
@@ -41,7 +41,7 @@ app.set("view engine", "pug");
 router.get("/", auththenticator, homePage);
 router.get("/register", authController.renderRegister);
 router.get("/login", authController.renderLogin);
-router.get("/profile", auththenticator, profilePage);
+router.get("/profile", auththenticator, profileController.profilePage);
 
 //auth action
 router.post("/login", authController.login);
@@ -67,6 +67,14 @@ router.delete(
 
 //react action
 router.post("/react", auththenticator, reactController.handleReact);
+
+//profile action
+router.post("/profile", auththenticator, profileController.profile);
+router.post(
+  "/reset-password",
+  auththenticator,
+  profileController.resetPassword
+);
 
 app.listen(SERVER.PORT, () => {
   console.log(`Server is running on port: ${SERVER.PORT}`);

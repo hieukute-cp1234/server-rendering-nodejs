@@ -13,3 +13,10 @@ function redirectLogin(key) {
     });
   }
 }
+
+function handleEditProfile() {
+  $(".box-button").toggle();
+  $(".input-edit").toggle();
+  $(".button-edit-profile").toggle();
+  $(".value-profile").toggle();
+}

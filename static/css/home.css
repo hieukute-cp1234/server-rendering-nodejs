@@ -42,6 +42,12 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 20%;
+}
+
+.profile > a {
+  color: #231f20;
+  font-size: 25px;
 }
 
 .profile .box-profile {
@@ -53,7 +59,7 @@ body {
 }
 
 .box-profile span {
-  margin-left: 10px;
+  margin-left: 5px;
 }
 
 .profile img {
@@ -79,18 +85,15 @@ body {
   height: 30px;
   display: flex;
   padding: 0 5px;
+  align-items: center;
 }
 
-.dropdown div:hover,
-.dropdown auto:hover {
+.dropdown div:hover {
   background-color: #fafafa;
 }
 
 .dropdown a {
-  border: none;
-  width: 100%;
-  text-align: start;
-  background-color: #fff;
+  color: #000;
 }
 
 .dropdown a i::before {
@@ -199,4 +202,5 @@ body {
   width: 40%;
   margin-top: 20px;
   padding: 20px 0 0 20px;
+  text-align: center;
 }

@@ -1,0 +1,47 @@
+.content-profile {
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 1);
+  padding: 15px;
+  margin-top: 10px;
+}
+
+.key-profile {
+  width: 30%;
+  text-align: end;
+  font-weight: bold;
+}
+
+.key-profile::after {
+  content: ":";
+}
+
+.value-profile,
+.value-profil-email {
+  margin-left: 5px;
+}
+
+.input-edit {
+  margin-left: 5px;
+  width: 60%;
+  outline: none;
+  display: none;
+}
+
+.button-edit-profile,
+.box-button button {
+  background-color: #fafafa;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+  margin-top: 20px;
+  padding: 10px;
+  font-weight: 600;
+}
+
+.box-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  display: none;
+}
