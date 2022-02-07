@@ -4,7 +4,9 @@ const verifyTken = async (req, res, next) => {
   try {
     const token = req.cookies.token;
     if (!token) {
-      return res.status(402).redirect("/login");
+      req.user = null;
+      next();
+      return;
     }
 
     const dataUser = await JWT.verityToken(token);

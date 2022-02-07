@@ -2,7 +2,7 @@ const validator = require("validator");
 const bcrypt = require("bcrypt");
 const JWT = require("../helpers/jwt");
 const users = require("../models/user");
-const handleError = require("../helpers/response");
+const handleMessage = require("../helpers/response");
 
 const renderRegister = async (req, res) => {
   res.render("register", { title: "Register" });
@@ -17,44 +17,39 @@ const register = async (req, res) => {
     const { email, password, userName, confirmPassword } = req.body;
 
     if (!email) {
-      return res.render(
-        "register",
-        handleError("Vui lòng nhập email của bạn!")
-      );
+      return res
+        .status(400)
+        .json(handleMessage("Vui lòng nhập email của bạn!"));
     }
 
     if (!password) {
-      return res.render(
-        "register",
-        handleError("Password không được để trống!")
-      );
+      return res
+        .status(400)
+        .json(handleMessage("Password không được để trống!"));
     }
 
     if (!validator.isEmail(email)) {
-      return res.render(
-        "register",
-        handleError(`${email} không phải là email!`)
-      );
+      return res
+        .status(401)
+        .json(handleMessage(`${email} không phải là email!`));
     }
 
     if (password.length < 6) {
-      return res.render(
-        "register",
-        handleError("Password lớn hoặc bằng 6 kí tự!")
-      );
+      return res
+        .status(400)
+        .json(handleMessage("Password lớn hoặc bằng 6 kí tự!"));
     }
 
     if (password !== confirmPassword) {
-      return res.render(
-        "register",
-        handleError("Xác nhận password không đúng")
-      );
+      return res
+        .status(402)
+        .json(handleMessage("Xác nhận password không đúng"));
     }
 
     const checkEmail = await users.findOne({ email });
 
     if (checkEmail) {
-      return res.render("register", handleError(`Email ${email} đã tồn tại!`));
+      return res.status(402).json(handleMessage(`Email ${email} đã tồn tại!`));
     }
 
     const saltRounds = 10;
@@ -67,11 +62,11 @@ const register = async (req, res) => {
       userName: userName || email.split("@")[0],
     };
     const result = await users.create(newUser);
-    return res.render("register", {
-      success: `Đăng kí email ${result.email} thành công!`,
-    });
+    return res
+      .status(200)
+      .json(handleMessage(`Đăng kí email ${result.email} thành công!`));
   } catch (error) {
-    return res.render("register", handleError("Server error!"));
+    return res.status(500).json(handleMessage("Server error!"));
   }
 };
 
@@ -80,32 +75,41 @@ const login = async (req, res) => {
     const { email, password } = req.body;
 
     if (!email) {
-      return res.render("login", handleError("Vui lòng nhập email của bạn!"));
+      return res
+        .status(400)
+        .json(handleMessage("Vui lòng nhập email của bạn!"));
     }
 
     if (!password) {
-      return res.render("login", handleError("Password không được để trống!"));
+      return res
+        .status(400)
+        .json(handleMessage("Password không được để trống!"));
     }
 
     if (!validator.isEmail(email)) {
-      return res.render("login", handleError(`${email} không phải là email!`));
+      return res
+        .status(401)
+        .json(handleMessage(`${email} không phải là email!`));
     }
 
     if (password.length < 6) {
-      return res.render(
-        "login",
-        handleError("Password lớn hoặc bằng 6 kí tự!")
-      );
+      return res
+        .status(401)
+        .json(handleMessage("Password lớn hoặc bằng 6 kí tự!"));
     }
 
     const checkEmail = await users.findOne({ email });
     if (!checkEmail) {
-      return res.render("login", handleError(`Email ${email} không tồn tại!`));
+      return res
+        .status(402)
+        .json(handleMessage(`Email ${email} không tồn tại!`));
     }
 
     const checkPassword = await checkEmail.comparePass(password);
     if (!checkPassword) {
-      return res.render("login", handleError("Mật khẩu vừa nhập không đúng!"));
+      return res
+        .status(402)
+        .json(handleMessage("Mật khẩu vừa nhập không đúng!"));
     }
 
     const token = await JWT.generateToken(checkEmail._id);
@@ -113,7 +117,7 @@ const login = async (req, res) => {
 
     return res.redirect("/");
   } catch (error) {
-    return res.render("login", handleError("Server error!"));
+    return res.status(500).json(handleMessage("Server error!"));
   }
 };
 

@@ -6,7 +6,8 @@
   align-items: center;
 }
 
-.form-login {
+#form-login,
+#form-register {
   width: 20%;
   min-height: 40%;
   max-height: 80%;
@@ -19,6 +20,7 @@
 
 .error,
 .success {
+  display: none;
   word-wrap: break-word;
   padding: 10px;
   border-radius: 5px;
@@ -38,13 +40,14 @@
   width: 100%;
 }
 
-.form-login form {
+#form-login form,
+#form-register form {
   display: flex;
   flex-direction: column;
-  /* padding: 0 80px; */
 }
 
-.form-login form input {
+#form-login form input,
+#form-register form input {
   margin-top: 5px;
   border-radius: 5px;
   outline: none;

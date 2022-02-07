@@ -7,16 +7,39 @@ const profilePage = async (req, res) => {
     { _id: req.user },
     { password: 0, updatedAt: 0, _id: 0, __v: 0 }
   );
-  console.log(profile);
+  if (!profile) {
+    return res.redirect("/");
+  }
   const allBlogByUser = await blogs
     .find({ author: req.user })
     .populate("author", ["userName", "email"])
     .populate("react", ["reacted", "author"])
     .populate("comments", ["content", "author"]);
+
   res.render("profile", {
     title: "Profile",
     titlePage: "My Blog",
     user: profile,
+    blogList: allBlogByUser,
+  });
+};
+
+const profileByUser = async (req, res) => {
+  const userId = req.params.user_id;
+  const profile = await users.findOne(
+    { _id: userId },
+    { password: 0, updatedAt: 0, _id: 0, __v: 0 }
+  );
+  const allBlogByUser = await blogs
+    .find({ author: userId })
+    .populate("author", ["userName", "email"])
+    .populate("react", ["reacted", "author"])
+    .populate("comments", ["content", "author"]);
+
+  res.render("profileByUser", {
+    title: `${profile.userName}`,
+    titlePage: `Page of ${profile.userName}`,
+    userList: profile,
     blogList: allBlogByUser,
   });
 };
@@ -39,7 +62,6 @@ const profile = async (req, res) => {
     await users.findOneAndUpdate({ _id: req.user }, req.body);
     return res.redirect("/profile");
   } catch (err) {
-    console.log(err);
     return res.render("profile", handleError(err));
   }
 };
@@ -99,4 +121,5 @@ module.exports = {
   resetPassword,
   profilePage,
   profile,
+  profileByUser,
 };

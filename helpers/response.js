@@ -1,5 +1,5 @@
-const handleError = (message) => ({
-  error: message.toString(),
+const handleMessage = (message) => ({
+  message: message,
 });
 
-module.exports = handleError;
+module.exports = handleMessage;

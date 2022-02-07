@@ -4,21 +4,24 @@ const handleError = require("../helpers/response");
 
 const createComments = async (req, res) => {
   try {
-    const { author, content, blog_id } = req.body;
-    if (!author) {
-      return res.render("/", handleError("Không có author!"));
+    const { content, blog_id } = req.body;
+
+    if (!req.user) {
+      return res.status(400).json({ message: "Bạn hãy đăng nhập trước!" });
     }
 
     if (!content) {
-      return res.render("/", handleError("Nội dung không được để trống!"));
+      return res.status(400).json({ message: "success!" });
+      // return res.render("home", handleError("Nội dung không được để trống!"));
     }
 
     if (!blog_id) {
-      return res.render("/", handleError("Comment phải thuộc một blog!"));
+      return res.status(400).json({ message: "success!" });
+      // return res.render("home", handleError("Comment phải thuộc một blog!"));
     }
 
     const newComment = {
-      author: author,
+      author: req.user,
       content: content,
       blog_id: blog_id,
     };
@@ -28,9 +31,10 @@ const createComments = async (req, res) => {
       { _id: blog_id },
       { $push: { comments: result } }
     );
-    return res.redirect("/");
+    return res.status(200).json({ message: "sucess!" });
   } catch (err) {
-    return res.render("/", handleError("Server error!"));
+    console.log(err);
+    return res.status(500).json({ message: "error!" });
   }
 };
 

@@ -100,6 +100,14 @@ body {
   margin-right: 5px;
 }
 
+.btn-signin a {
+  color: #000;
+}
+
+.btn-signin a i::before {
+  margin-right: 5px;
+}
+
 .container {
   padding: 0 15%;
   height: calc(100vh - 61px);
@@ -142,6 +150,7 @@ body {
 .blog-author div {
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 }
 
 .blog-author img {
@@ -190,12 +199,20 @@ body {
 
 .blog-comments input {
   margin-left: 10px;
-  width: 92%;
-  border-radius: 999px;
+  width: 83%;
+  border-radius: 999px 0 0 999px;
   outline: none;
   border: none;
   background-color: #fafafa;
   padding: 0 10px;
+}
+
+.blog-comments button {
+  border-radius: 0 999px 999px 0;
+  outline: none;
+  border: none;
+  background-color: #fafafa;
+  padding-right: 10px;
 }
 
 .container-friend {

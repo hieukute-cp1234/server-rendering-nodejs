@@ -1,7 +1,7 @@
 div(class="wrapper-blog" id= blog._id)
   div(class="blog-author")
     image(src="https://allimages.sgp1.digitaloceanspaces.com/wikilaptopcom/2021/01/1610802039_Tuyen-tap-avatar-anh-dai-dien-dep-doc-dao-da.jpg")
-    div
+    div(onclick=`openProfileByUser("${blog.author._id}")`)
       span(class="blog-author_name")= blog.author.userName
       span(class="blog-author_email")= blog.author.email
   div(class="blog-content")
@@ -9,4 +9,6 @@ div(class="wrapper-blog" id= blog._id)
     div(class="blog-decriptions")= blog.content
   div(class="blog-comments")
     image(src="https://allimages.sgp1.digitaloceanspaces.com/wikilaptopcom/2021/01/1610802039_Tuyen-tap-avatar-anh-dai-dien-dep-doc-dao-da.jpg")
-    input(placeholder="Write a comment...")
+    input(id="input-comment" placeholder="Write a comment...")
+    button(id="btn-add-comment")
+      i.fa.fa-share

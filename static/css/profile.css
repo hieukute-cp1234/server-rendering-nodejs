@@ -45,3 +45,9 @@
   justify-content: space-evenly;
   display: none;
 }
+
+.container-friend img {
+  width: 50%;
+  border-radius: 999px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}

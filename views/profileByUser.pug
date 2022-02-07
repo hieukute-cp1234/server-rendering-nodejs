@@ -1,0 +1,44 @@
+doctype html
+html(lang="en")
+  include layout/layout
+  body
+    include layout/header
+    div(class="container")
+      div(class="container-blog")
+        h2(style="text-align: center;") Blogs của bạn
+        each blog in blogList
+          include components/boxBlog
+      div(class="container-friend")
+        image(src="https://allimages.sgp1.digitaloceanspaces.com/wikilaptopcom/2021/01/1610802039_Tuyen-tap-avatar-anh-dai-dien-dep-doc-dao-da.jpg")
+        div(class="content-profile")
+          div(class="key-profile") Email
+          div(class="value-profil-email")= userList.email
+        div(class="content-profile")
+          div(class="key-profile") Tên
+          div(class="value-profile")= userList.userName
+        div(class="content-profile")
+          div(class="key-profile") Ngày sinh
+          div(class="value-profile")= userList.birthDay
+        div(class="content-profile")
+          div(class="key-profile") Số ĐT
+          div(class="value-profile")= userList.phone
+        div(class="content-profile")
+          div(class="key-profile") Địa chỉ
+          div(class="value-profile")= userList.address
+        div(class="content-profile")
+          div(class="key-profile") Nghề nghiệp
+          div(class="value-profile")= userList.work
+        div(class="content-profile")
+          div(class="key-profile") Trường học
+          div(class="value-profile")= userList.school
+        div(class="content-profile")
+          div(class="key-profile") Công ty
+          div(class="value-profile")= userList.company
+        div(class="content-profile")
+          div(class="key-profile") Sở thích
+          div(class="value-profile")= userList.hobby
+        div(class="content-profile")
+          div(class="key-profile") Sở trường
+          div(class="value-profile")= userList.gifted
+      
+
