@@ -42,9 +42,11 @@ router.get("/", auththenticator, homePage);
 router.get("/register", authController.renderRegister);
 router.get("/login", authController.renderLogin);
 router.get("/profile", auththenticator, profileController.profilePage);
-
-//profile by user name
-router.get("/profile/:user_id", profileController.profileByUser);
+router.get(
+  "/profile/:user_id",
+  auththenticator,
+  profileController.profileByUser
+);
 
 //auth action
 router.post("/login", authController.login);

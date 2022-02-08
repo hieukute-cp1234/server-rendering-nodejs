@@ -77,6 +77,46 @@ $(document).ready(function () {
       },
     });
   });
+
+  // $('btn-update-profile').on('click', function (e) {
+  //   const userName = $('.container-friend input[name="userName"]').val();
+  //   const birthDay = $('.container-friend input[name="birthDay"]').val();
+  //   const phone = $('.container-friend input[name="phone"]').val();
+  //   const address = $('.container-friend input[name="address"]').val();
+  //   const work = $('.container-friend input[name="work"]').val();
+  //   const school = $('.container-friend input[name="school"]').val();
+  //   const company = $('.container-friend input[name="company"]').val();
+  //   const hobby = $('.container-friend input[name="hobby"]').val();
+  //   const gifted = $('.container-friend input[name="gifted"]').val();
+
+  //   $.ajax({
+  //     url: '/profile',
+  //     method: 'POST',
+  //     data: {
+  //       userName: userName,
+  //       birthDay: birthDay,
+  //       phone: phone,
+  //       address: address,
+  //       work: work,
+  //       school: school,
+  //       company: company,
+  //       hobby: hobby,
+  //       gifted: gifted,
+  //     },
+  //     success: function(){
+
+  //     },
+  //     error: function(){}
+  //   })
+  // });
+  $("#open-popup").on("click", function (e) {
+    e.preventDefault();
+    $(".wrapper-popup-blog").show();
+  });
+
+  $("#close-popup").on("click", function () {
+    $(".wrapper-popup-blog").hide();
+  });
 });
 
 function openProfileByUser(userId) {

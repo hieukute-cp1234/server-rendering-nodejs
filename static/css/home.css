@@ -148,6 +148,7 @@ body {
 }
 
 .blog-author div {
+  width: 100%;
   display: flex;
   flex-direction: column;
   cursor: pointer;
@@ -215,9 +216,75 @@ body {
   padding-right: 10px;
 }
 
+.action-blog button {
+  border: none;
+  background-color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
 .container-friend {
   width: 40%;
   margin-top: 20px;
   padding: 20px 0 0 20px;
   text-align: center;
+}
+
+.wrapper-popup-blog {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  z-index: 9;
+  display: none;
+}
+
+.wrapper-popup-blog .popup-add-blog {
+  width: 40%;
+  height: 70vh;
+  margin-left: 30%;
+  margin-top: 15vh;
+  background-color: #fff;
+  border-radius: 15px;
+}
+
+.popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px 0 20px;
+}
+
+#close-popup {
+  font-size: 40px;
+  color: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+.content-popup {
+  padding: 10px 40px;
+}
+
+.content-popup textarea {
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 16px;
+}
+
+#btn-submit-add-blog {
+  width: 100%;
+  border-radius: 999px;
+  height: 30px;
+  border: none;
+  background-color: #fec32d;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+#btn-submit-add-blog {
+  background-color: #f7b81b;
 }

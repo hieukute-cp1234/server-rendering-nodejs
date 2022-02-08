@@ -21,11 +21,16 @@ const profilePage = async (req, res) => {
     titlePage: "My Blog",
     user: profile,
     blogList: allBlogByUser,
+    isOwner: true,
   });
 };
 
 const profileByUser = async (req, res) => {
   const userId = req.params.user_id;
+  const profileOwner = await users.findOne(
+    { _id: req.user },
+    { password: 0, updatedAt: 0, _id: 0, __v: 0 }
+  );
   const profile = await users.findOne(
     { _id: userId },
     { password: 0, updatedAt: 0, _id: 0, __v: 0 }
@@ -40,6 +45,7 @@ const profileByUser = async (req, res) => {
     title: `${profile.userName}`,
     titlePage: `Page of ${profile.userName}`,
     userList: profile,
+    user: profileOwner,
     blogList: allBlogByUser,
   });
 };

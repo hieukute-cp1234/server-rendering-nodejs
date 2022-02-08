@@ -4,9 +4,15 @@ div(class="wrapper-blog" id= blog._id)
     div(onclick=`openProfileByUser("${blog.author._id}")`)
       span(class="blog-author_name")= blog.author.userName
       span(class="blog-author_email")= blog.author.email
+    if isOwner
+      div(class="action-blog" style="flex-direction: row; justify-content: end;")
+        button(title="Sửa blog")
+          i.fa.fa-edit
+        button(title="xóa blog")
+          i.fa.fa-trash
   div(class="blog-content")
-    image(src="/image/img1.jpg")
     div(class="blog-decriptions")= blog.content
+    image(src="/image/img1.jpg")
   div(class="blog-comments")
     image(src="https://allimages.sgp1.digitaloceanspaces.com/wikilaptopcom/2021/01/1610802039_Tuyen-tap-avatar-anh-dai-dien-dep-doc-dao-da.jpg")
     input(id="input-comment" placeholder="Write a comment...")

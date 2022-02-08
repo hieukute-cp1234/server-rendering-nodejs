@@ -8,10 +8,10 @@ div(class="header")
       i.fa.fa-search
     input(type="text" placeholder="Search...")
   div(class="profile")
-    a(href="/")
+    a(href="/" title="Xem blog của mọi người")
       i.fa.fa-home
-    a(href="" style="font-size: 20px;")
-      i.fa.fa-bell
+    a(href="" title="Đăng blog của bạn" style="font-size: 22px;" id="open-popup")
+      i.fa.fa-plus-square
     if user
       div(class="box-profile")
         image(src="https://allimages.sgp1.digitaloceanspaces.com/wikilaptopcom/2021/01/1610802039_Tuyen-tap-avatar-anh-dai-dien-dep-doc-dao-da.jpg")
@@ -27,3 +27,15 @@ div(class="header")
       div(class="btn-signin")
         a(href="/login")
           i.fa.fa-sign-in đăng nhập
+div(class="wrapper-popup-blog")
+  div(class="popup-add-blog")
+    div(class="popup-header")
+      div(style="width: 35px;")
+      div(style="font-size: 30px; font-weight: bold; color: rgba(14, 14, 14, 0.8)") Tạo mới blog
+      div(id="close-popup" title="Đóng popup")
+        i.fa.fa-times-circle
+    hr(width="90%")
+    div(class="content-popup")
+      textarea(name="content" rows="15" cols="50" placeholder="Bạn đang nghĩ gì...")
+    div(style="padding: 0 20px")
+      button(id="btn-submit-add-blog") Đăng
