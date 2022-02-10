@@ -12,6 +12,7 @@ const profilePage = async (req, res) => {
   }
   const allBlogByUser = await blogs
     .find({ author: req.user })
+    .sort({ _id: -1 })
     .populate("author", ["userName", "email"])
     .populate("react", ["reacted", "author"])
     .populate("comments", ["content", "author"]);
@@ -37,6 +38,7 @@ const profileByUser = async (req, res) => {
   );
   const allBlogByUser = await blogs
     .find({ author: userId })
+    .sort({ _id: -1 })
     .populate("author", ["userName", "email"])
     .populate("react", ["reacted", "author"])
     .populate("comments", ["content", "author"]);

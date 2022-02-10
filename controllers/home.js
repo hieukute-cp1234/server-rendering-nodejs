@@ -5,6 +5,7 @@ const home = async (req, res) => {
   const profile = await users.findOne({ _id: req.user });
   const allBlog = await blogs
     .find({ __v: 0 })
+    .sort({ _id: -1 })
     .populate("author", ["userName", "email"])
     .populate("react", ["reacted", "author"])
     .populate("comments", ["content", "author"]);

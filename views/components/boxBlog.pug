@@ -6,9 +6,9 @@ div(class="wrapper-blog" id= blog._id)
       span(class="blog-author_email")= blog.author.email
     if isOwner
       div(class="action-blog" style="flex-direction: row; justify-content: end;")
-        button(title="Sửa blog")
+        button(id="edit-blog" title="Sửa blog" onclick=`openPopupEdit("${blog._id}");`)
           i.fa.fa-edit
-        button(title="xóa blog")
+        button(id="delete-blog" title="xóa blog" onclick=`deleteBlog("${blog._id}");`)
           i.fa.fa-trash
   div(class="blog-content")
     div(class="blog-decriptions")= blog.content
@@ -18,3 +18,15 @@ div(class="wrapper-blog" id= blog._id)
     input(id="input-comment" placeholder="Write a comment...")
     button(id="btn-add-comment")
       i.fa.fa-share
+  div(class="wrapper-popup-blog-edit" name= blog._id)
+    div(class="popup-add-blog-edit")
+      div(class="popup-header-edit")
+        div(style="width: 35px;")
+        div(style="font-size: 30px; font-weight: bold; color: rgba(14, 14, 14, 0.8)") Chỉnh sửa blog
+        div(id="close-popup-edit" title="Đóng popup")
+          i.fa.fa-times-circle
+      hr(width="90%")
+      div(class="content-popup-edit")
+        textarea(name="content-edit" id="content-edit" rows="15" cols="50")
+      div(style="padding: 0 20px")
+        button(class="btn-submit-edit-blog" onclick=`editBlog("${blog._id}")`) Lưu

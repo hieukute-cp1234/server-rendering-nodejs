@@ -78,44 +78,39 @@ $(document).ready(function () {
     });
   });
 
-  // $('btn-update-profile').on('click', function (e) {
-  //   const userName = $('.container-friend input[name="userName"]').val();
-  //   const birthDay = $('.container-friend input[name="birthDay"]').val();
-  //   const phone = $('.container-friend input[name="phone"]').val();
-  //   const address = $('.container-friend input[name="address"]').val();
-  //   const work = $('.container-friend input[name="work"]').val();
-  //   const school = $('.container-friend input[name="school"]').val();
-  //   const company = $('.container-friend input[name="company"]').val();
-  //   const hobby = $('.container-friend input[name="hobby"]').val();
-  //   const gifted = $('.container-friend input[name="gifted"]').val();
-
-  //   $.ajax({
-  //     url: '/profile',
-  //     method: 'POST',
-  //     data: {
-  //       userName: userName,
-  //       birthDay: birthDay,
-  //       phone: phone,
-  //       address: address,
-  //       work: work,
-  //       school: school,
-  //       company: company,
-  //       hobby: hobby,
-  //       gifted: gifted,
-  //     },
-  //     success: function(){
-
-  //     },
-  //     error: function(){}
-  //   })
-  // });
   $("#open-popup").on("click", function (e) {
     e.preventDefault();
-    $(".wrapper-popup-blog").show();
+    const token = document.cookie;
+    if (!token) {
+      alert("Bạn cần đăng nhập trước khi đăng blog!");
+    } else {
+      $(".wrapper-popup-blog").show();
+    }
   });
 
-  $("#close-popup").on("click", function () {
+  $("#close-popup, #close-popup-edit").on("click", function () {
     $(".wrapper-popup-blog").hide();
+    $(".wrapper-popup-blog-edit").hide();
+  });
+
+  $("#btn-submit-add-blog").on("click", function (e) {
+    e.preventDefault();
+    const path = window.location.pathname;
+    const content = $(".popup-add-blog .content-popup textarea").val();
+    $.ajax({
+      url: "/blog",
+      method: "POST",
+      data: {
+        content: content,
+      },
+      success: function (data) {
+        window.location.replace(path);
+        alert(data.responseJSON.message);
+      },
+      error: function (error) {
+        alert(error.responseJSON.message);
+      },
+    });
   });
 });
 
@@ -143,3 +138,44 @@ function handleEditProfile() {
   $(".button-edit-profile").toggle();
   $(".value-profile").toggle();
 }
+
+function editBlog(id_blog) {
+  const content = $(`div[name="${id_blog}"] textarea`).val();
+  $.ajax({
+    url: `/blog/${id_blog}`,
+    method: "PUT",
+    data: {
+      content: content,
+    },
+    success: function (data) {
+      $(".wrapper-popup-blog-edit").hide();
+      $(`#${id_blog}`).find(".blog-decriptions").html(content);
+      alert(data.message);
+    },
+    error: function (error) {
+      alert(error.message);
+    },
+  });
+}
+
+const openPopupEdit = (id) => {
+  $(`#${id}`).find(".wrapper-popup-blog-edit").show();
+  const content = $(`#${id}`).find(".blog-decriptions").text();
+  $(`#${id}`).find(".wrapper-popup-blog-edit textarea").val(content);
+  $(`#${id}`).find(".wrapper-popup-blog-edit textarea").focus();
+};
+
+const deleteBlog = (id_blog) => {
+  const path = window.location.pathname;
+  $.ajax({
+    url: `/blog/${id_blog}`,
+    method: "DELETE",
+    success: function (data) {
+      alert(data.message);
+      window.location.replace(path);
+    },
+    error: function (error) {
+      alert(error.message);
+    },
+  });
+};
