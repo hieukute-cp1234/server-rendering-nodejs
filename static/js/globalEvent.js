@@ -59,8 +59,8 @@ $(document).ready(function () {
     });
   });
 
-  $("#btn-add-comment").on("click", function (event) {
-    const content = $("#input-comment").val();
+  $(".btn-add-comment").on("click", function (event) {
+    const content = $(this).siblings("input").val();
     const blogId = $(this).closest(".wrapper-blog").attr("id");
     $.ajax({
       url: "/comments",
@@ -70,10 +70,10 @@ $(document).ready(function () {
         blog_id: blogId,
       },
       success: function (data) {
-        alert(data.responseJSON.message);
+        alert(data.message);
       },
       error: function (error) {
-        alert(error.responseJSON.message);
+        alert(error.message);
       },
     });
   });
@@ -93,24 +93,14 @@ $(document).ready(function () {
     $(".wrapper-popup-blog-edit").hide();
   });
 
-  $("#btn-submit-add-blog").on("click", function (e) {
+  $(".chose-file button").on("click", function (e) {
     e.preventDefault();
-    const path = window.location.pathname;
-    const content = $(".popup-add-blog .content-popup textarea").val();
-    $.ajax({
-      url: "/blog",
-      method: "POST",
-      data: {
-        content: content,
-      },
-      success: function (data) {
-        window.location.replace(path);
-        alert(data.responseJSON.message);
-      },
-      error: function (error) {
-        alert(error.responseJSON.message);
-      },
-    });
+    $('input[name="imageBlog"]')[0].click();
+  });
+
+  $(".chose-file-edit button").on("click", function (e) {
+    e.preventDefault();
+    $(this).siblings('input[name="imageBlogEdit"]')[0].click();
   });
 });
 
@@ -137,6 +127,7 @@ function handleEditProfile() {
   $(".input-edit").toggle();
   $(".button-edit-profile").toggle();
   $(".value-profile").toggle();
+  $(".btn-add-file-image").toggle();
 }
 
 function editBlog(id_blog) {
@@ -171,11 +162,17 @@ const deleteBlog = (id_blog) => {
     url: `/blog/${id_blog}`,
     method: "DELETE",
     success: function (data) {
+      $(".wrapper-blog").each(function (_, node) {
+        $(node).attr("id") === id_blog && $(node).remove();
+      });
       alert(data.message);
-      window.location.replace(path);
     },
     error: function (error) {
       alert(error.message);
     },
   });
 };
+
+function uploadImage() {
+  $('input[name="avatar"]')[0].click();
+}

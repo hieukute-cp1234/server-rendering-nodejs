@@ -6,7 +6,6 @@ const PostSchema = new Schema({
   content: {
     type: String,
     trim: true,
-    minLength: 1,
   },
   image: {
     type: String,

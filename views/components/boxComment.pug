@@ -1,0 +1,10 @@
+div(class="item-comment")
+  div(class="item-comment-author")
+      if comment.author.avatar
+        image(src=`/image/${comment.author.avatar}`)
+      else 
+        image(src='https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png')
+      div(onclick=`openProfileByUser("${comment.author._id}")`)
+        span(class="item-name")= comment.author.userName
+        span(class="item-email" style="margin-top: 2px")= comment.content
+  

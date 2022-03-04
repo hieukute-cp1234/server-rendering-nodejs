@@ -11,13 +11,11 @@ const createComments = async (req, res) => {
     }
 
     if (!content) {
-      return res.status(400).json({ message: "success!" });
-      // return res.render("home", handleError("Nội dung không được để trống!"));
+      return res.status(400).json({ message: "Bạn cần nhập nội dung trước!" });
     }
 
     if (!blog_id) {
-      return res.status(400).json({ message: "success!" });
-      // return res.render("home", handleError("Comment phải thuộc một blog!"));
+      return res.status(400).json({ message: "Blog không tồn tại!" });
     }
 
     const newComment = {
@@ -31,9 +29,10 @@ const createComments = async (req, res) => {
       { _id: blog_id },
       { $push: { comments: result } }
     );
-    return res.status(200).json({ message: "sucess!" });
+    return res
+      .status(200)
+      .json({ message: "Bình luận của bạn đã được đăng tải!" });
   } catch (err) {
-    console.log(err);
     return res.status(500).json({ message: "error!" });
   }
 };

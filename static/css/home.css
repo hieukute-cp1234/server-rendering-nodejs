@@ -177,12 +177,25 @@ body {
 }
 
 .blog-content img {
+  margin-top: 15px;
   width: 100%;
 }
 
 .blog-content .blog-decriptions {
-  padding: 15px;
+  padding: 0 15px 0px 15px;
   white-space: break-spaces;
+  overflow: auto;
+  max-height: 400px;
+}
+.blog-content .blog-decriptions::-webkit-scrollbar {
+  width: 5px;
+}
+.blog-content .blog-decriptions::-webkit-scrollbar-track {
+  display: none;
+}
+.blog-content .blog-decriptions::-webkit-scrollbar-thumb {
+  background: #b7aeae;
+  border-radius: 10px;
 }
 
 .blog-decriptions::first-letter {
@@ -298,4 +311,61 @@ body {
 #btn-submit-add-blog:hover,
 .btn-submit-edit-blog:hover {
   background-color: #f7b81b;
+}
+
+.chose-file button,
+.chose-file-edit button {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 999px;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 5px 6px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.chose-file input,
+.chose-file-edit input {
+  margin-left: 5px;
+  border-radius: 999px;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 5px 6px;
+  width: 89%;
+  cursor: pointer;
+}
+
+.content-popup input::file-selector-button,
+.content-popup-edit input::file-selector-button {
+  display: none;
+}
+
+.item-comment {
+  padding: 15px 15px 0 15px;
+}
+
+.item-comment-author {
+  display: flex;
+}
+
+.item-comment-author div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  background-color: #efefef;
+  padding: 5px 10px 5px 10px;
+  border-radius: 10px;
+  margin-left: 5px;
+}
+
+.item-comment-author img {
+  width: 30px;
+  height: 30px !important;
+  border-radius: 999px;
+  font-family: system-ui;
+  font-weight: 500;
+}
+
+.item-comment-author span {
 }

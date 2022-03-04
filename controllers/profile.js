@@ -1,3 +1,4 @@
+const sharp = require("sharp");
 const blogs = require("../models/blog");
 const users = require("../models/user");
 const handleError = require("../helpers/response");
@@ -13,9 +14,12 @@ const profilePage = async (req, res) => {
   const allBlogByUser = await blogs
     .find({ author: req.user })
     .sort({ _id: -1 })
-    .populate("author", ["userName", "email"])
+    .populate("author", ["userName", "email", "avatar"])
     .populate("react", ["reacted", "author"])
-    .populate("comments", ["content", "author"]);
+    .populate({
+      path: "comments",
+      populate: { path: "author", select: ["userName", "avatar"] },
+    });
 
   res.render("profile", {
     title: "Profile",
@@ -39,7 +43,7 @@ const profileByUser = async (req, res) => {
   const allBlogByUser = await blogs
     .find({ author: userId })
     .sort({ _id: -1 })
-    .populate("author", ["userName", "email"])
+    .populate("author", ["userName", "email", "avatar"])
     .populate("react", ["reacted", "author"])
     .populate("comments", ["content", "author"]);
 
@@ -55,6 +59,18 @@ const profileByUser = async (req, res) => {
 const profile = async (req, res) => {
   try {
     const { email, phone } = req.body;
+    let nameAvatar = null;
+    if (req.file) {
+      nameAvatar = req.file.fieldname + "-" + req.file.filename + ".jpg";
+
+      sharp(req.file.path)
+        .resize(300, 300)
+        .toFile("static/image/" + nameAvatar, function (err, file) {
+          if (err) {
+            console.log("error", err);
+          }
+        });
+    }
 
     if (email) {
       return res.render(
@@ -67,7 +83,13 @@ const profile = async (req, res) => {
       return res.render("profile", handleError("Phone phải là số!"));
     }
 
-    await users.findOneAndUpdate({ _id: req.user }, req.body);
+    const currentAvatar = await users.findOne({ _id: req.user });
+
+    const newValue = {
+      ...req.body,
+      avatar: nameAvatar || currentAvatar.avatar,
+    };
+    await users.findOneAndUpdate({ _id: req.user }, newValue);
     return res.redirect("/profile");
   } catch (err) {
     return res.render("profile", handleError(err));

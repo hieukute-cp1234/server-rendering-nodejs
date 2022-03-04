@@ -14,7 +14,10 @@ div(class="header")
       i.fa.fa-plus-square
     if user
       div(class="box-profile")
-        image(src="https://allimages.sgp1.digitaloceanspaces.com/wikilaptopcom/2021/01/1610802039_Tuyen-tap-avatar-anh-dai-dien-dep-doc-dao-da.jpg")
+        if user.avatar
+          image(src=`/image/${user.avatar}`)
+        else 
+          image(src='https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png')
         span(style="-webkit-user-select: none;")= user.userName
         div(class="dropdown")
           div(class="menu-item")
@@ -35,7 +38,12 @@ div(class="wrapper-popup-blog")
       div(id="close-popup" title="Đóng popup")
         i.fa.fa-times-circle
     hr(width="90%")
-    div(class="content-popup")
-      textarea(name="content" rows="15" cols="50" placeholder="Bạn đang nghĩ gì...")
-    div(style="padding: 0 20px")
-      button(id="btn-submit-add-blog") Đăng
+    form(action="/blog" method="POST" enctype="multipart/form-data")
+      div(class="content-popup")
+        textarea(name="content" rows="13" cols="50" placeholder="Bạn đang nghĩ gì...")
+        div(class="chose-file")
+          button
+            i.fa.fa-picture-o
+          input(type="file" name="imageBlog" accept="image/*")
+      div(style="padding: 0 20px")
+        button(id="btn-submit-add-blog" type="submit") Đăng

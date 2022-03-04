@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const multer = require("multer");
 const cookies = require("cookie-parser");
 const router = express.Router();
 const auththenticator = require("./middlewares/authenticator");
@@ -31,11 +32,25 @@ const connectDatabase = async () => {
 const app = express();
 connectDatabase();
 app.use(express.static("static"));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookies());
 app.use(router);
 app.set("views", "./views");
 app.set("view engine", "pug");
+
+//upload photo
+const storage = multer.diskStorage({});
+const storageImageBlog = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./static/image");
+  },
+  filename: function (req, file, cb) {
+    const nameImage = file.fieldname + "-" + Date.now() + ".jpg";
+    cb(null, nameImage);
+  },
+});
+const uploadAvatar = multer({ storage: storage });
+const uploadImageBlog = multer({ storage: storageImageBlog });
 
 //render page
 router.get("/", auththenticator, homePage);
@@ -53,8 +68,18 @@ router.post("/login", authController.login);
 router.post("/register", authController.register);
 
 //blog action
-router.post("/blog", auththenticator, blogController.createBlog);
-router.put("/blog/:id_blog", auththenticator, blogController.editBlog);
+router.post(
+  "/blog",
+  auththenticator,
+  uploadImageBlog.single("imageBlog"),
+  blogController.createBlog
+);
+router.post(
+  "/blog/:id_blog",
+  uploadImageBlog.single("imageBlogEdit"),
+  auththenticator,
+  blogController.editBlog
+);
 router.delete("/blog/:id_blog", auththenticator, blogController.deleteBlog);
 
 //comment action
@@ -74,7 +99,12 @@ router.delete(
 router.post("/react", auththenticator, reactController.handleReact);
 
 //profile action
-router.post("/profile", auththenticator, profileController.profile);
+router.post(
+  "/profile",
+  auththenticator,
+  uploadAvatar.single("avatar"),
+  profileController.profile
+);
 router.post(
   "/reset-password",
   auththenticator,

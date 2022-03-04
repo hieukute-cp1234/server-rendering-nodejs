@@ -8,7 +8,10 @@ html(lang="en")
         each blog in blogList
           include components/boxBlog
       div(class="container-friend")
-        image(src="https://allimages.sgp1.digitaloceanspaces.com/wikilaptopcom/2021/01/1610802039_Tuyen-tap-avatar-anh-dai-dien-dep-doc-dao-da.jpg")
+        if userList.avatar
+          image(src=`/image/${userList.avatar}`)
+        else 
+          image(src='https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png')
         div(class="content-profile")
           div(class="key-profile") Email
           div(class="value-profil-email")= userList.email
@@ -16,28 +19,31 @@ html(lang="en")
           div(class="key-profile") Tên
           div(class="value-profile")= userList.userName
         div(class="content-profile")
+          div(class="key-profile") Giới tính
+          div(class="value-profile")= userList.sex || "Chưa được cập nhật!"
+        div(class="content-profile")
           div(class="key-profile") Ngày sinh
-          div(class="value-profile")= userList.birthDay
+          div(class="value-profile")= userList.birthDay || "Chưa được cập nhật!"
         div(class="content-profile")
           div(class="key-profile") Số ĐT
-          div(class="value-profile")= userList.phone
+          div(class="value-profile")= userList.phone || "Chưa được cập nhật!"
         div(class="content-profile")
           div(class="key-profile") Địa chỉ
-          div(class="value-profile")= userList.address
+          div(class="value-profile")= userList.address || "Chưa được cập nhật!"
         div(class="content-profile")
           div(class="key-profile") Nghề nghiệp
-          div(class="value-profile")= userList.work
+          div(class="value-profile")= userList.work || "Chưa được cập nhật!"
         div(class="content-profile")
           div(class="key-profile") Trường học
-          div(class="value-profile")= userList.school
+          div(class="value-profile")= userList.school || "Chưa được cập nhật!"
         div(class="content-profile")
           div(class="key-profile") Công ty
-          div(class="value-profile")= userList.company
+          div(class="value-profile")= userList.company || "Chưa được cập nhật!"
         div(class="content-profile")
           div(class="key-profile") Sở thích
-          div(class="value-profile")= userList.hobby
+          div(class="value-profile")= userList.hobby || "Chưa được cập nhật!"
         div(class="content-profile")
           div(class="key-profile") Sở trường
-          div(class="value-profile")= userList.gifted
+          div(class="value-profile")= userList.gifted || "Chưa được cập nhật!"
       
 

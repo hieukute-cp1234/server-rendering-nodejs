@@ -25,25 +25,25 @@ const fetchBlogByUser = async (req, res) => {
 
 const createBlog = async (req, res) => {
   try {
-    const { content, image } = req.body;
-    if (!content) {
-      return res
-        .status(400)
-        .json(handleMessage("Hãy chia sẻ những cảm nhận của bạn!"));
+    const { content } = req.body;
+    const imageBlogName = req.file ? req.file.filename : null;
+
+    if (!content && !imageBlogName) {
+      return res.redirect("/");
     }
 
     const newBlog = {
       author: req.user,
       content: content,
-      image: image || "",
+      image: imageBlogName || "",
       react: [],
       comments: [],
     };
 
     await blogs.create(newBlog);
-    return res.status(200).json(handleMessage("Blog được tạo!"));
+    return res.redirect("/");
   } catch (err) {
-    return res.status(500).json(handleMessage("Eerver error!"));
+    return res.redirect("/");
   }
 };
 
@@ -51,16 +51,23 @@ const editBlog = async (req, res) => {
   try {
     const { content } = req.body;
 
-    if (!content) {
-      return res.status(400).json(handleMessage("Không có nội dung!"));
+    const imageBlogName = req.file ? req.file.filename : null;
+
+    if (!content && !imageBlogName) {
+      return res.redirect("/profile");
     }
 
-    await blogs.findByIdAndUpdate({ _id: req.params.id_blog }, req.body);
+    const currentImageBlog = await blogs.findOne({ _id: req.params.id_blog });
 
-    return res.status(200).json(handleMessage("Sửa thành công!"));
+    const newValue = {
+      ...req.body,
+      image: imageBlogName || currentImageBlog.image,
+    };
+
+    await blogs.findByIdAndUpdate({ _id: req.params.id_blog }, newValue);
+    return res.redirect("/profile");
   } catch (error) {
-    console.log(error);
-    return res.status(500).json(handleMessage("Server error!"));
+    return res.redirect("/");
   }
 };
 

@@ -9,12 +9,19 @@ html(lang="en")
         each blog in blogList
           include components/boxBlog
       div(class="container-friend") 
-        image(src="https://allimages.sgp1.digitaloceanspaces.com/wikilaptopcom/2021/01/1610802039_Tuyen-tap-avatar-anh-dai-dien-dep-doc-dao-da.jpg")
-        if error
-          div(class="error")= error
-        if success
-          div(class="success")= success
-        form(action="/profile" method="POST")
+        form(action="/profile" method="POST" enctype="multipart/form-data")
+          div(style="position: relative;")
+            if user.avatar
+              image(src=`/image/${user.avatar}`)
+            else 
+              image(src='https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png')
+            div(class="btn-add-file-image" onclick="uploadImage();")
+              input(type="file" name="avatar" accept="image/*" style="display: none;")
+              i.fa.fa-camera
+          if error
+            div(class="error")= error
+          if success
+            div(class="success")= success
           div(class="content-profile")
             div(class="key-profile") Email
             div(class="value-profil-email")= user.email
@@ -22,6 +29,9 @@ html(lang="en")
             div(class="key-profile") Tên
             div(class="value-profile")= user.userName
             input(class="input-edit" name="userName" value=user.userName)
+          div(class="content-profile")
+            div(class="key-profile") Giới tính
+            div(class="value-profile")= user.sex
           div(class="content-profile")
             div(class="key-profile") Ngày sinh
             div(class="value-profile")= user.birthDay

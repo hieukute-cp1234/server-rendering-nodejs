@@ -1,6 +1,9 @@
 div(class="wrapper-blog" id= blog._id)
   div(class="blog-author")
-    image(src="https://allimages.sgp1.digitaloceanspaces.com/wikilaptopcom/2021/01/1610802039_Tuyen-tap-avatar-anh-dai-dien-dep-doc-dao-da.jpg")
+    if blog.author.avatar
+      image(src=`/image/${blog.author.avatar}`)
+    else 
+      image(src='https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png')
     div(onclick=`openProfileByUser("${blog.author._id}")`)
       span(class="blog-author_name")= blog.author.userName
       span(class="blog-author_email")= blog.author.email
@@ -11,12 +14,20 @@ div(class="wrapper-blog" id= blog._id)
         button(id="delete-blog" title="xóa blog" onclick=`deleteBlog("${blog._id}");`)
           i.fa.fa-trash
   div(class="blog-content")
-    div(class="blog-decriptions")= blog.content
-    image(src="/image/img1.jpg")
+    if blog.content
+      div(class="blog-decriptions")= blog.content
+    if blog.image
+      image(src=`/image/${blog.image}`)
+  div(class="content-comment")
+    each comment in blog.comments
+      include boxComment
   div(class="blog-comments")
-    image(src="https://allimages.sgp1.digitaloceanspaces.com/wikilaptopcom/2021/01/1610802039_Tuyen-tap-avatar-anh-dai-dien-dep-doc-dao-da.jpg")
+    if user.avatar
+      image(src=`/image/${user.avatar}`)
+    else 
+      image(src='https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png')
     input(id="input-comment" placeholder="Write a comment...")
-    button(id="btn-add-comment")
+    button(class="btn-add-comment")
       i.fa.fa-share
   div(class="wrapper-popup-blog-edit" name= blog._id)
     div(class="popup-add-blog-edit")
@@ -26,7 +37,12 @@ div(class="wrapper-blog" id= blog._id)
         div(id="close-popup-edit" title="Đóng popup")
           i.fa.fa-times-circle
       hr(width="90%")
-      div(class="content-popup-edit")
-        textarea(name="content-edit" id="content-edit" rows="15" cols="50")
-      div(style="padding: 0 20px")
-        button(class="btn-submit-edit-blog" onclick=`editBlog("${blog._id}")`) Lưu
+      form(action=`/blog/${blog._id}` method="POST" enctype="multipart/form-data")
+        div(class="content-popup-edit")
+          textarea(name="content" id="content-edit" rows="13" cols="50")
+          div(class="chose-file-edit")
+            button
+              i.fa.fa-picture-o
+            input(type="file" name="imageBlogEdit" accept="image/*")
+        div(style="padding: 0 20px")
+          button(class="btn-submit-edit-blog" type="submit") Lưu

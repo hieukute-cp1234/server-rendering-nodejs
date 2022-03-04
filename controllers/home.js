@@ -6,7 +6,7 @@ const home = async (req, res) => {
   const allBlog = await blogs
     .find({ __v: 0 })
     .sort({ _id: -1 })
-    .populate("author", ["userName", "email"])
+    .populate("author", ["userName", "email", "avatar"])
     .populate("react", ["reacted", "author"])
     .populate("comments", ["content", "author"]);
   res.render("home", {
